@@ -1,7 +1,7 @@
 {
   "name": "react-native-outlined-text",
-  "version": "0.1.0",
-  "description": "A React Native component for creating outlined text with customizable stroke effects",
+  "version": "0.2.0",
+  "description": "A React Native component for creating outlined text with customizable stroke effects and automatic text wrapping",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -19,6 +19,7 @@
     "text-stroke",
     "stroke-text",
     "text-outline",
+    "text-wrapping",
     "react-native-component"
   ],
   "author": "donkasun",
