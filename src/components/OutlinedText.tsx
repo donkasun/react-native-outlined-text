@@ -1,39 +1,84 @@
 import React from 'react';
-import { Text, TextProps, StyleSheet } from 'react-native';
+import { View, ViewProps } from 'react-native';
+import Svg, { Text as SvgText } from 'react-native-svg';
 
-export interface OutlinedTextProps extends TextProps {
-  strokeWidth?: number;
+export interface OutlinedTextProps extends ViewProps {
+  text: string;
+  width: number;
+  height: number;
+  fontSize?: number;
   strokeColor?: string;
-  children: React.ReactNode;
+  strokeWidth?: number;
+  fillColor?: string;
+  shadowColor?: string;
+  x?: number;
+  y?: number;
+  textAnchor?: 'start' | 'middle' | 'end';
+  verticalOffset?: number;
+  fontFamily?: string;
 }
 
 const OutlinedText: React.FC<OutlinedTextProps> = ({
-  strokeWidth = 2,
-  strokeColor = '#000',
+  text,
+  width,
+  height,
+  fontSize = 26,
+  strokeColor = 'black',
+  strokeWidth = 1,
+  fillColor = 'white',
+  shadowColor = '#000000',
+  x,
+  y,
+  textAnchor = 'middle',
+  verticalOffset = 0,
+  fontFamily = 'Nunito-Regular',
   style,
-  children,
   ...props
 }) => {
-  const textStyle = StyleSheet.flatten(style);
-  
-  // Create stroke effect using text shadow
-  const strokeStyle = {
-    textShadowColor: strokeColor,
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 0,
-    // Create multiple shadows to simulate stroke
-    ...Array.from({ length: strokeWidth * 2 }, (_, i) => ({
-      [`textShadow${i + 1}`]: `${strokeColor} ${Math.cos(i * Math.PI / (strokeWidth * 2)) * strokeWidth}px ${Math.sin(i * Math.PI / (strokeWidth * 2)) * strokeWidth}px 0px`
-    })).reduce((acc, shadow) => ({ ...acc, ...shadow }), {})
-  };
+  // Calculate center position if x and y are not provided
+  const centerX = x ?? width / 2;
+  const centerY = y ?? height / 2 + verticalOffset;
 
   return (
-    <Text
-      style={[textStyle, strokeStyle]}
-      {...props}
-    >
-      {children}
-    </Text>
+    <View style={[{ justifyContent: 'center', alignItems: 'center' }, style]} {...props}>
+      <Svg height={height} width={width}>
+        {/* Shadow text - positioned slightly offset */}
+        <SvgText
+          fill={shadowColor}
+          fontSize={fontSize}
+          x={centerX + 3}
+          y={centerY + 3}
+          textAnchor={textAnchor}
+          fontFamily={fontFamily}
+        >
+          {text}
+        </SvgText>
+        {/* Stroke text - creates the outline effect */}
+        <SvgText
+          stroke={strokeColor}
+          strokeWidth={strokeWidth * 2}
+          fill="none"
+          fontSize={fontSize}
+          x={centerX}
+          y={centerY}
+          textAnchor={textAnchor}
+          fontFamily={fontFamily}
+        >
+          {text}
+        </SvgText>
+        {/* Fill text - positioned on top */}
+        <SvgText
+          fill={fillColor}
+          fontSize={fontSize}
+          x={centerX}
+          y={centerY}
+          textAnchor={textAnchor}
+          fontFamily={fontFamily}
+        >
+          {text}
+        </SvgText>
+      </Svg>
+    </View>
   );
 };
 

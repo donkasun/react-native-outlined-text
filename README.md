@@ -5,17 +5,20 @@ A React Native component for creating outlined text with customizable stroke eff
 ## Features
 
 - 🎨 Customizable stroke width and color
+- 🌟 Shadow effects for enhanced visual appeal
 - 📱 Cross-platform compatibility (iOS & Android)
 - ⚡ Lightweight and performant
 - 🔧 TypeScript support
 - 🧪 Comprehensive test coverage
+- 🎯 Precise positioning and alignment control
+- 🎨 Multiple text effects (stroke, fill, shadow)
 
 ## Installation
 
 ```bash
-npm install react-native-outlined-text
+npm install react-native-outlined-text react-native-svg
 # or
-yarn add react-native-outlined-text
+yarn add react-native-outlined-text react-native-svg
 ```
 
 ## Usage
@@ -29,27 +32,44 @@ const App = () => {
   return (
     <View style={styles.container}>
       {/* Basic usage */}
-      <OutlinedText style={styles.text}>
-        Hello World
-      </OutlinedText>
+      <OutlinedText 
+        text="Hello World"
+        width={200}
+        height={100}
+      />
 
       {/* Custom stroke */}
       <OutlinedText 
-        style={styles.text}
+        text="Red Outline"
+        width={200}
+        height={100}
         strokeWidth={3}
         strokeColor="#ff0000"
-      >
-        Red Outline
-      </OutlinedText>
+      />
 
-      {/* With custom styles */}
+      {/* With custom colors and positioning */}
       <OutlinedText 
-        style={[styles.text, { fontSize: 24, color: '#fff' }]}
+        text="White Text with Black Outline"
+        width={200}
+        height={100}
+        fontSize={24}
+        fillColor="#ffffff"
+        strokeColor="#000000"
         strokeWidth={2}
-        strokeColor="#000"
-      >
-        White Text with Black Outline
-      </OutlinedText>
+        textAnchor="middle"
+      />
+
+      {/* With shadow effect */}
+      <OutlinedText 
+        text="Text with Shadow"
+        width={200}
+        height={100}
+        fontSize={20}
+        fillColor="#ffffff"
+        strokeColor="#000000"
+        shadowColor="#cccccc"
+        strokeWidth={1}
+      />
     </View>
   );
 };
@@ -61,11 +81,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f5f5f5',
   },
-  text: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginVertical: 10,
-  },
 });
 
 export default App;
@@ -75,11 +90,21 @@ export default App;
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `strokeWidth` | `number` | `2` | Width of the text outline |
-| `strokeColor` | `string` | `'#000'` | Color of the text outline |
-| `children` | `React.ReactNode` | **Required** | Text content to display |
-| `style` | `TextStyle` | - | Additional text styles |
-| `...TextProps` | - | - | All standard React Native Text props |
+| `text` | `string` | **Required** | Text content to display |
+| `width` | `number` | **Required** | Width of the SVG container |
+| `height` | `number` | **Required** | Height of the SVG container |
+| `fontSize` | `number` | `26` | Font size of the text |
+| `strokeWidth` | `number` | `1` | Width of the text outline |
+| `strokeColor` | `string` | `'black'` | Color of the text outline |
+| `fillColor` | `string` | `'white'` | Color of the text fill |
+| `shadowColor` | `string` | `'#BFC1F9'` | Color of the shadow effect |
+| `x` | `number` | `width / 2` | X position of the text (auto-centered if not provided) |
+| `y` | `number` | `height / 2` | Y position of the text (auto-centered if not provided) |
+| `textAnchor` | `'start' \| 'middle' \| 'end'` | `'middle'` | Text alignment anchor |
+| `verticalOffset` | `number` | `0` | Vertical offset from center |
+| `fontFamily` | `string` | `'Nunito-Regular'` | Font family to use |
+| `style` | `ViewStyle` | - | Additional container styles |
+| `...ViewProps` | - | - | All standard React Native View props |
 
 ## Development
 
