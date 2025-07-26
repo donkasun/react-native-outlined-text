@@ -1,0 +1,1 @@
+export { default as OutlinedText, SvgTextOutlined } from './lib/components/OutlinedText'; 

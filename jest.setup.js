@@ -1,15 +1,10 @@
 // Mock React Native components and modules
-jest.mock('react-native', () => {
-  const RN = jest.requireActual('react-native');
-  return {
-    ...RN,
-    Text: 'Text',
-    View: 'View',
-    StyleSheet: {
-      create: (styles) => styles,
-    },
-  };
-});
+jest.mock('react-native', () => ({
+  View: 'View',
+  StyleSheet: {
+    create: (styles) => styles,
+  },
+}));
 
 // Mock console methods to reduce noise in tests
 global.console = {
