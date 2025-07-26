@@ -2,7 +2,16 @@ import React from "react";
 import { View } from "react-native";
 import Svg, { Text as SvgText } from "react-native-svg";
 
-export interface SvgTextOutlinedProps {
+const typography = {
+  fontFamily: {
+    regular: 'Nunito-Regular',
+    medium: 'Nunito-Medium',
+    semiBold: 'Nunito-SemiBold',
+    bold: 'Nunito-Bold',
+  },
+} as const;
+
+interface SvgTextOutlinedProps {
   text: string;
   width: number;
   height?: number;
@@ -14,8 +23,12 @@ export interface SvgTextOutlinedProps {
   x?: number;
   y?: number;
   textAnchor?: "start" | "middle" | "end";
-  verticalOffset?: number;
-  lineHeight?: number;
+  fontFamily?: keyof typeof typography.fontFamily;
+  fontWeight?: keyof typeof typography.fontFamily;
+  letterSpacing?: number;
+  textTransform?: "none" | "uppercase" | "lowercase" | "capitalize";
+  textDecoration?: "none" | "underline" | "line-through";
+  opacity?: number;
 }
 
 // Helper function to estimate text width
@@ -67,10 +80,38 @@ export function SvgTextOutlined({
   x,
   y,
   textAnchor = "middle",
-  verticalOffset = 0,
+  fontFamily = "medium",
+  fontWeight,
+  letterSpacing,
+  textTransform = "none",
+  textDecoration = "none",
+  opacity = 1,
 }: SvgTextOutlinedProps) {
+  // Determine final font family
+  const finalFontFamily = fontWeight || fontFamily;
+  const finalFontFamilyValue = typography.fontFamily[finalFontFamily];
+  
+  // Apply text transformations
+  const processedText = (() => {
+    let result = text;
+    switch (textTransform) {
+      case "uppercase":
+        result = text.toUpperCase();
+        break;
+      case "lowercase":
+        result = text.toLowerCase();
+        break;
+      case "capitalize":
+        result = text.replace(/\b\w/g, (char) => char.toUpperCase());
+        break;
+      default:
+        result = text;
+    }
+    return result;
+  })();
+
   // Wrap text into lines
-  const lines = wrapText(text, width, fontSize);
+  const lines = wrapText(processedText, width, fontSize);
   
   // Calculate total height needed for all lines
   const totalLineHeight = fontSize * 1.2;
@@ -78,7 +119,7 @@ export function SvgTextOutlined({
   
   // Calculate center position if x and y are not provided
   const centerX = x ?? width / 2;
-  const centerY = y ?? (height ? height / 2 + verticalOffset : totalHeight / 2 + verticalOffset);
+  const centerY = y ?? (height ? height / 2 : totalHeight / 2);
   
   // Calculate starting Y position to center all lines vertically
   // For SVG text, y represents the baseline, so we need to account for text that extends above it
@@ -86,7 +127,7 @@ export function SvgTextOutlined({
   const startY = centerY - (totalHeight / 2) + (totalLineHeight / 2) + (fontSize * 0.2);
 
   return (
-    <View>
+    <View style={{backgroundColor: "transparent"}}>
       <Svg height={Math.max(height ?? 0, totalHeight)} width={width}>
         {lines.map((line, index) => {
           const lineY = startY + (index * totalLineHeight);
@@ -96,40 +137,49 @@ export function SvgTextOutlined({
                        textAnchor === "end" ? width : 
                        centerX;
           
+          // Common text properties
+          const commonTextProps = {
+            fontSize,
+            x: textX,
+            y: lineY,
+            textAnchor,
+            fontFamily: finalFontFamilyValue,
+            opacity,
+            ...(letterSpacing && { letterSpacing }),
+          };
+          
+          // Handle text decoration separately due to TypeScript constraints
+          const textDecorationProps = textDecoration === "underline" || textDecoration === "line-through" 
+            ? { textDecoration } 
+            : {};
+          
           return (
             <React.Fragment key={index}>
               {/* Shadow text - positioned slightly offset */}
               <SvgText
+                {...commonTextProps}
+                {...textDecorationProps}
                 fill={shadowColor}
-                fontSize={fontSize}
-                x={textX + (textAnchor === "middle" ? 3 : 0)}
-                y={lineY + 3}
-                textAnchor={textAnchor}
-                fontFamily="Nunito-Regular"
+                x={textX + 4}
+                y={lineY + 4}
               >
                 {line}
               </SvgText>
               {/* Stroke text - creates the outline effect */}
               <SvgText
+                {...commonTextProps}
+                {...textDecorationProps}
                 stroke={strokeColor}
                 strokeWidth={strokeWidth * 2}
                 fill="none"
-                fontSize={fontSize}
-                x={textX}
-                y={lineY}
-                textAnchor={textAnchor}
-                fontFamily="Nunito-Regular"
               >
                 {line}
               </SvgText>
               {/* Fill text - positioned on top */}
               <SvgText
+                {...commonTextProps}
+                {...textDecorationProps}
                 fill={fillColor}
-                fontSize={fontSize}
-                x={textX}
-                y={lineY}
-                textAnchor={textAnchor}
-                fontFamily="Nunito-Regular"
               >
                 {line}
               </SvgText>
@@ -141,10 +191,14 @@ export function SvgTextOutlined({
   );
 }
 
+// Export the typography object for external use if needed
+export { typography };
+
+// Export types for external use
+export type { SvgTextOutlinedProps };
+
 // Keep the original interface for backward compatibility
-export interface OutlinedTextProps extends SvgTextOutlinedProps {
-  style?: any;
-}
+export interface OutlinedTextProps extends SvgTextOutlinedProps {}
 
 const OutlinedText: React.FC<OutlinedTextProps> = (props) => {
   return <SvgTextOutlined {...props} />;
