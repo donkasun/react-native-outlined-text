@@ -109,6 +109,7 @@ const AdvancedExample = () => {
         strokeWidth={3}
         strokeColor="#ff0000"
         shadowColor="#cccccc"
+        shadowOffset={4}
       />
 
       {/* Text with wrapping */}
@@ -128,6 +129,15 @@ const AdvancedExample = () => {
         y={50}
         textAnchor="start"
         fontSize={24}
+      />
+
+      {/* Text with custom shadow offset */}
+      <OutlinedText 
+        text="Shadow Offset"
+        width={200}
+        shadowColor="#666"
+        shadowOffset={6}
+        fontSize={20}
       />
     </View>
   );
@@ -161,7 +171,8 @@ The core component with text wrapping functionality. Use this for maximum contro
 | `strokeWidth` | `number` | `1` | No | Width of the text outline |
 | `strokeColor` | `string` | `'black'` | No | Color of the text outline |
 | `fillColor` | `string` | `'white'` | No | Color of the text fill |
-| `shadowColor` | `string` | `'#BFC1F9'` | No | Color of the shadow effect |
+| `shadowColor` | `string` | `'black'` | No | Color of the shadow effect |
+| `shadowOffset` | `number` | `0` | No | Offset distance for shadow effect |
 | `x` | `number` | `width / 2` | No | X position of the text (auto-centered if not provided) |
 | `y` | `number` | `height / 2` or `auto-calculated` | No | Y position of the text (auto-centered if not provided) |
 | `textAnchor` | `'start' \| 'middle' \| 'end'` | `'middle'` | No | Text alignment anchor |
