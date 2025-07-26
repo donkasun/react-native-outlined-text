@@ -139,6 +139,7 @@ const AdvancedExample = () => {
         shadowColor="#666"
         shadowOffsetX={6}
         shadowOffsetY={2}
+        shadowOpacity={0.7}
         fontSize={20}
       />
 
@@ -149,7 +150,19 @@ const AdvancedExample = () => {
         shadowColor="#999"
         shadowOffsetX={8}
         shadowOffsetY={-3}
+        shadowOpacity={0.5}
         fontSize={18}
+      />
+
+      {/* Text with subtle shadow */}
+      <OutlinedText 
+        text="Subtle Shadow"
+        width={200}
+        shadowColor="#000"
+        shadowOffsetX={2}
+        shadowOffsetY={2}
+        shadowOpacity={0.3}
+        fontSize={16}
       />
     </View>
   );
@@ -186,6 +199,7 @@ The core component with text wrapping functionality. Use this for maximum contro
 | `shadowColor` | `string` | `'#000000'` | No | Color of the shadow effect |
 | `shadowOffsetX` | `number` | `0` | No | Horizontal offset for shadow effect |
 | `shadowOffsetY` | `number` | `0` | No | Vertical offset for shadow effect |
+| `shadowOpacity` | `number` | `1` | No | Opacity of the shadow effect (0-1) |
 | `x` | `number` | `width / 2` | No | X position of the text (auto-centered if not provided) |
 | `y` | `number` | `height / 2` or `auto-calculated` | No | Y position of the text (auto-centered if not provided) |
 | `textAnchor` | `'start' \| 'middle' \| 'end'` | `'middle'` | No | Text alignment anchor |

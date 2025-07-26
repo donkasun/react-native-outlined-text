@@ -22,6 +22,7 @@ interface SvgTextOutlinedProps {
   shadowColor?: string;
   shadowOffsetX?: number;
   shadowOffsetY?: number;
+  shadowOpacity?: number;
   x?: number;
   y?: number;
   textAnchor?: "start" | "middle" | "end";
@@ -81,6 +82,7 @@ export function SvgTextOutlined({
   shadowColor = "#000000",
   shadowOffsetX = 0,
   shadowOffsetY = 0,
+  shadowOpacity = 1,
   x,
   y,
   textAnchor = "middle",
@@ -164,6 +166,7 @@ export function SvgTextOutlined({
                 {...commonTextProps}
                 {...textDecorationProps}
                 fill={shadowColor}
+                opacity={shadowOpacity}
                 x={textX + shadowOffsetX}
                 y={lineY + shadowOffsetY}
               >
