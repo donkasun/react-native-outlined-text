@@ -77,7 +77,7 @@ export function SvgTextOutlined({
   strokeColor = "black",
   strokeWidth = 1,
   fillColor = "white",
-  shadowColor = "black",
+  shadowColor = "#000000",
   shadowOffset = 0,
   x,
   y,

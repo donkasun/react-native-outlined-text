@@ -171,7 +171,7 @@ The core component with text wrapping functionality. Use this for maximum contro
 | `strokeWidth` | `number` | `1` | No | Width of the text outline |
 | `strokeColor` | `string` | `'black'` | No | Color of the text outline |
 | `fillColor` | `string` | `'white'` | No | Color of the text fill |
-| `shadowColor` | `string` | `'black'` | No | Color of the shadow effect |
+| `shadowColor` | `string` | `'#000000'` | No | Color of the shadow effect |
 | `shadowOffset` | `number` | `0` | No | Offset distance for shadow effect |
 | `x` | `number` | `width / 2` | No | X position of the text (auto-centered if not provided) |
 | `y` | `number` | `height / 2` or `auto-calculated` | No | Y position of the text (auto-centered if not provided) |
