@@ -20,7 +20,8 @@ interface SvgTextOutlinedProps {
   strokeWidth?: number;
   fillColor?: string;
   shadowColor?: string;
-  shadowOffset?: number;
+  shadowOffsetX?: number;
+  shadowOffsetY?: number;
   x?: number;
   y?: number;
   textAnchor?: "start" | "middle" | "end";
@@ -78,7 +79,8 @@ export function SvgTextOutlined({
   strokeWidth = 1,
   fillColor = "white",
   shadowColor = "#000000",
-  shadowOffset = 0,
+  shadowOffsetX = 0,
+  shadowOffsetY = 0,
   x,
   y,
   textAnchor = "middle",
@@ -157,13 +159,13 @@ export function SvgTextOutlined({
           
           return (
             <React.Fragment key={index}>
-              {/* Shadow text - positioned with dynamic offset */}
+              {/* Shadow text - positioned with dynamic x and y offsets */}
               <SvgText
                 {...commonTextProps}
                 {...textDecorationProps}
                 fill={shadowColor}
-                x={textX + shadowOffset}
-                y={lineY + shadowOffset}
+                x={textX + shadowOffsetX}
+                y={lineY + shadowOffsetY}
               >
                 {line}
               </SvgText>
