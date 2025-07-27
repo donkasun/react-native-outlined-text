@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import OutlinedText, { SvgTextOutlined } from '../components/';
+import OutlinedText, { SvgTextOutlined } from '../components/OutlinedText';
 
 // Mock react-native-svg
 jest.mock('react-native-svg', () => {
