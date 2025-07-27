@@ -404,6 +404,44 @@ If you encounter any issues or have questions:
 - Shadow effects
 - Cross-platform compatibility
 
+## Example App
+
+A comprehensive example app is included in the `example/` directory that demonstrates all features of the library:
+
+### 🎯 Features Showcased
+- Basic outlined text with stroke and fill effects
+- Custom colors and stroke widths
+- Shadow effects with offset and opacity
+- Blur shadow effects with multiple layers
+- Automatic text wrapping for long content
+- Text alignment options (start, middle, end)
+- Custom positioning and advanced effects
+- SvgTextOutlined component usage
+
+### 🚀 Quick Start
+```bash
+# Navigate to example directory
+cd example
+
+# Install dependencies
+npm install
+
+# Run on iOS
+npm run ios
+
+# Run on Android
+npm run android
+```
+
+### 📱 Interactive Demo
+The example app provides an interactive interface to explore all features:
+- Navigate through different examples with Previous/Next buttons
+- View real-time rendering of all effects
+- See code examples for each feature
+- Comprehensive feature documentation
+
+For detailed setup instructions, see the [example README](example/README.md).
+
 ## Acknowledgments
 
 - Built with [react-native-svg](https://github.com/react-native-svg/react-native-svg)
