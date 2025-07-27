@@ -11,7 +11,10 @@
     "prepublishOnly": "npm run clean && npm run build",
     "test": "jest",
     "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix"
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
+    "prepare": "husky install"
   },
   "keywords": [
     "react-native",
@@ -41,6 +44,9 @@
     "@types/react": "^19.0.0",
     "@types/react-native": "^0.72.0",
     "@types/jest": "^29.0.0",
+    "prettier": "^3.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.0.0",
@@ -58,5 +64,14 @@
   "bugs": {
     "url": "https://github.com/donkasun/react-native-outlined-text/issues"
   },
-  "homepage": "https://github.com/donkasun/react-native-outlined-text#readme"
+  "homepage": "https://github.com/donkasun/react-native-outlined-text#readme",
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{js,jsx,json,md}": [
+      "prettier --write"
+    ]
+  }
 } 

@@ -1,6 +1,6 @@
-import React from "react";
-import { View } from "react-native";
-import Svg, { Text as SvgText } from "react-native-svg";
+import React from 'react';
+import { View } from 'react-native';
+import Svg, { Text as SvgText } from 'react-native-svg';
 
 const typography = {
   fontFamily: {
@@ -26,12 +26,12 @@ interface SvgTextOutlinedProps {
   shadowBlur?: number;
   x?: number;
   y?: number;
-  textAnchor?: "start" | "middle" | "end";
+  textAnchor?: 'start' | 'middle' | 'end';
   fontFamily?: keyof typeof typography.fontFamily;
   fontWeight?: keyof typeof typography.fontFamily;
   letterSpacing?: number;
-  textTransform?: "none" | "uppercase" | "lowercase" | "capitalize";
-  textDecoration?: "none" | "underline" | "line-through";
+  textTransform?: 'none' | 'uppercase' | 'lowercase' | 'capitalize';
+  textDecoration?: 'none' | 'underline' | 'line-through';
   opacity?: number;
 }
 
@@ -43,7 +43,11 @@ const estimateTextWidth = (text: string, fontSize: number): number => {
 };
 
 // Helper function to wrap text into lines
-const wrapText = (text: string, maxWidth: number, fontSize: number): string[] => {
+const wrapText = (
+  text: string,
+  maxWidth: number,
+  fontSize: number
+): string[] => {
   const words = text.split(' ');
   const lines: string[] = [];
   let currentLine = '';
@@ -73,17 +77,20 @@ const wrapText = (text: string, maxWidth: number, fontSize: number): string[] =>
 };
 
 // Helper function to generate blur layers
-const generateBlurLayers = (shadowBlur: number): Array<{ offsetX: number; offsetY: number; opacity: number }> => {
+const generateBlurLayers = (
+  shadowBlur: number
+): Array<{ offsetX: number; offsetY: number; opacity: number }> => {
   if (shadowBlur <= 0) return [];
-  
-  const layers: Array<{ offsetX: number; offsetY: number; opacity: number }> = [];
+
+  const layers: Array<{ offsetX: number; offsetY: number; opacity: number }> =
+    [];
   const maxLayers = Math.min(Math.floor(shadowBlur / 2), 8); // Limit to 8 layers for performance
-  
+
   for (let i = 1; i <= maxLayers; i++) {
     const progress = i / maxLayers;
     const offset = (shadowBlur * progress) / 2;
     const opacity = (1 - progress) * 0.3; // Fade out as we go further
-    
+
     // Create multiple offset positions around the main shadow
     const angles = [0, 45, 90, 135, 180, 225, 270, 315];
     angles.forEach(angle => {
@@ -91,11 +98,11 @@ const generateBlurLayers = (shadowBlur: number): Array<{ offsetX: number; offset
       layers.push({
         offsetX: Math.cos(rad) * offset,
         offsetY: Math.sin(rad) * offset,
-        opacity: opacity / angles.length
+        opacity: opacity / angles.length,
       });
     });
   }
-  
+
   return layers;
 };
 
@@ -104,40 +111,40 @@ export function SvgTextOutlined({
   width,
   height,
   fontSize = 26,
-  strokeColor = "black",
+  strokeColor = 'black',
   strokeWidth = 1,
-  fillColor = "white",
-  shadowColor = "#000000",
+  fillColor = 'white',
+  shadowColor = '#000000',
   shadowOffsetX = 0,
   shadowOffsetY = 0,
   shadowOpacity = 1,
   shadowBlur = 0,
   x,
   y,
-  textAnchor = "middle",
-  fontFamily = "medium",
+  textAnchor = 'middle',
+  fontFamily = 'medium',
   fontWeight,
   letterSpacing,
-  textTransform = "none",
-  textDecoration = "none",
+  textTransform = 'none',
+  textDecoration = 'none',
   opacity = 1,
 }: SvgTextOutlinedProps) {
   // Determine final font family
   const finalFontFamily = fontWeight || fontFamily;
   const finalFontFamilyValue = typography.fontFamily[finalFontFamily];
-  
+
   // Apply text transformations
   const processedText = (() => {
     let result = text;
     switch (textTransform) {
-      case "uppercase":
+      case 'uppercase':
         result = text.toUpperCase();
         break;
-      case "lowercase":
+      case 'lowercase':
         result = text.toLowerCase();
         break;
-      case "capitalize":
-        result = text.replace(/\b\w/g, (char) => char.toUpperCase());
+      case 'capitalize':
+        result = text.replace(/\b\w/g, char => char.toUpperCase());
         break;
       default:
         result = text;
@@ -147,31 +154,31 @@ export function SvgTextOutlined({
 
   // Wrap text into lines
   const lines = wrapText(processedText, width, fontSize);
-  
+
   // Calculate total height needed for all lines
   const totalLineHeight = fontSize * 1.2;
   const totalHeight = lines.length * totalLineHeight;
-  
+
   // Calculate center position if x and y are not provided
   const centerX = x ?? width / 2;
   const centerY = y ?? (height ? height / 2 : totalHeight / 2);
-  
+
   // Calculate starting Y position to center all lines vertically
   // For SVG text, y represents the baseline, so we need to account for text that extends above it
   // Add a small offset to prevent text from being cut off at the top
-  const startY = centerY - (totalHeight / 2) + (totalLineHeight / 2) + (fontSize * 0.2);
+  const startY =
+    centerY - totalHeight / 2 + totalLineHeight / 2 + fontSize * 0.2;
 
   return (
-    <View style={{backgroundColor: "transparent"}}>
+    <View style={{ backgroundColor: 'transparent' }}>
       <Svg height={Math.max(height ?? 0, totalHeight)} width={width}>
         {lines.map((line, index) => {
-          const lineY = startY + (index * totalLineHeight);
-          
+          const lineY = startY + index * totalLineHeight;
+
           // Calculate the actual x position based on textAnchor
-          const textX = textAnchor === "start" ? 0 : 
-                       textAnchor === "end" ? width : 
-                       centerX;
-          
+          const textX =
+            textAnchor === 'start' ? 0 : textAnchor === 'end' ? width : centerX;
+
           // Common text properties
           const commonTextProps = {
             fontSize,
@@ -182,15 +189,16 @@ export function SvgTextOutlined({
             opacity,
             ...(letterSpacing && { letterSpacing }),
           };
-          
+
           // Handle text decoration separately due to TypeScript constraints
-          const textDecorationProps = textDecoration === "underline" || textDecoration === "line-through" 
-            ? { textDecoration } 
-            : {};
-          
+          const textDecorationProps =
+            textDecoration === 'underline' || textDecoration === 'line-through'
+              ? { textDecoration }
+              : {};
+
           // Generate blur layers
           const blurLayers = generateBlurLayers(shadowBlur);
-          
+
           return (
             <React.Fragment key={index}>
               {/* Blur shadow layers */}
@@ -207,7 +215,7 @@ export function SvgTextOutlined({
                   {line}
                 </SvgText>
               ))}
-              
+
               {/* Main shadow text - positioned with dynamic x and y offsets */}
               <SvgText
                 {...commonTextProps}
@@ -254,8 +262,8 @@ export type { SvgTextOutlinedProps };
 // Keep the original interface for backward compatibility
 export interface OutlinedTextProps extends SvgTextOutlinedProps {}
 
-const OutlinedText: React.FC<OutlinedTextProps> = (props) => {
+const OutlinedText: React.FC<OutlinedTextProps> = props => {
   return <SvgTextOutlined {...props} />;
 };
 
-export default OutlinedText; 
+export default OutlinedText;
