@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# React Native Outlined Text Example App Setup Script
+# React Native Outlined Text Example App Setup Script (Expo)
 
-echo "🚀 Setting up React Native Outlined Text Example App..."
+echo "🚀 Setting up React Native Outlined Text Example App (Expo)..."
 
 # Check if Node.js is installed
 if ! command -v node &> /dev/null; then
@@ -27,6 +27,19 @@ fi
 
 echo "✅ npm version: $(npm -v)"
 
+# Check if Expo CLI is installed
+if ! command -v expo &> /dev/null; then
+    echo "📱 Installing Expo CLI..."
+    npm install -g @expo/cli
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to install Expo CLI"
+        exit 1
+    fi
+    echo "✅ Expo CLI installed"
+else
+    echo "✅ Expo CLI found"
+fi
+
 # Install dependencies
 echo "📦 Installing dependencies..."
 npm install
@@ -38,33 +51,16 @@ fi
 
 echo "✅ Dependencies installed successfully"
 
-# Check if we're on macOS for iOS setup
+# Check for iOS Simulator (macOS only)
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "🍎 macOS detected - checking for iOS setup..."
+    echo "🍎 macOS detected - checking for iOS Simulator..."
     
-    # Check if Xcode is installed
-    if ! command -v xcodebuild &> /dev/null; then
-        echo "⚠️  Xcode not found. iOS development will not be available."
-        echo "   Install Xcode from the App Store to enable iOS development."
+    if command -v xcrun &> /dev/null; then
+        echo "✅ Xcode command line tools found"
+        echo "📱 iOS Simulator available"
     else
-        echo "✅ Xcode found"
-        
-        # Check if CocoaPods is installed
-        if ! command -v pod &> /dev/null; then
-            echo "⚠️  CocoaPods not found. Installing CocoaPods..."
-            sudo gem install cocoapods
-        else
-            echo "✅ CocoaPods found"
-        fi
-        
-        # Install iOS dependencies
-        if [ -d "ios" ]; then
-            echo "📱 Installing iOS dependencies..."
-            cd ios && pod install && cd ..
-            echo "✅ iOS dependencies installed"
-        else
-            echo "⚠️  iOS directory not found. Run 'npx react-native init' first."
-        fi
+        echo "⚠️  Xcode command line tools not found."
+        echo "   Install Xcode from the App Store to enable iOS development."
     fi
 else
     echo "🖥️  Non-macOS system detected. iOS development not available."
@@ -81,9 +77,16 @@ echo ""
 echo "🎉 Setup completed successfully!"
 echo ""
 echo "📱 To run the example app:"
-echo "   • iOS:     npm run ios"
-echo "   • Android: npm run android"
-echo "   • Metro:   npm start"
+echo "   • Start Expo:     npm start"
+echo "   • iOS:           npm run ios"
+echo "   • Android:       npm run android"
+echo "   • Web:           npm run web"
+echo ""
+echo "📱 Alternative ways to run:"
+echo "   • Scan QR code with Expo Go app on your phone"
+echo "   • Press 'i' for iOS Simulator"
+echo "   • Press 'a' for Android Emulator"
+echo "   • Press 'w' for web browser"
 echo ""
 echo "📚 Check the README.md file for more detailed instructions."
 echo ""

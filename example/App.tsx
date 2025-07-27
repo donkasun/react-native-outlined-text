@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import OutlinedText, { SvgTextOutlined } from '../src/components/OutlinedText';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -199,6 +200,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
       <View style={styles.header}>
         <Text style={styles.title}>React Native Outlined Text</Text>
         <Text style={styles.subtitle}>Example App</Text>

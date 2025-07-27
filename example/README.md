@@ -31,8 +31,8 @@ The example app showcases the following features:
 ### Prerequisites
 
 - Node.js >= 16
-- React Native development environment
-- iOS Simulator (for iOS) or Android Emulator (for Android)
+- Expo CLI (will be installed automatically)
+- Expo Go app on your phone (optional, for testing on device)
 
 ### Installation
 
@@ -41,32 +41,42 @@ The example app showcases the following features:
    cd example
    ```
 
-2. **Install dependencies:**
+2. **Run the automated setup:**
+   ```bash
+   ./setup.sh
+   ```
+
+   Or manually install dependencies:
    ```bash
    npm install
    ```
 
-3. **Install iOS dependencies (iOS only):**
-   ```bash
-   cd ios && pod install && cd ..
-   ```
-
 ### Running the App
 
-#### iOS
+#### Start Expo Development Server
+```bash
+npm start
+```
+
+#### iOS Simulator
 ```bash
 npm run ios
 ```
 
-#### Android
+#### Android Emulator
 ```bash
 npm run android
 ```
 
-#### Start Metro Bundler
+#### Web Browser
 ```bash
-npm start
+npm run web
 ```
+
+#### On Physical Device
+1. Install Expo Go app on your phone
+2. Run `npm start`
+3. Scan the QR code with Expo Go
 
 ## 📱 App Interface
 
