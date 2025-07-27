@@ -140,6 +140,7 @@ const AdvancedExample = () => {
         shadowOffsetX={6}
         shadowOffsetY={2}
         shadowOpacity={0.7}
+        shadowBlur={4}
         fontSize={20}
       />
 
@@ -163,6 +164,18 @@ const AdvancedExample = () => {
         shadowOffsetY={2}
         shadowOpacity={0.3}
         fontSize={16}
+      />
+
+      {/* Text with blurred shadow */}
+      <OutlinedText 
+        text="Blurred Shadow"
+        width={200}
+        shadowColor="#333"
+        shadowOffsetX={3}
+        shadowOffsetY={3}
+        shadowOpacity={0.8}
+        shadowBlur={8}
+        fontSize={18}
       />
     </View>
   );
@@ -200,6 +213,7 @@ The core component with text wrapping functionality. Use this for maximum contro
 | `shadowOffsetX` | `number` | `0` | No | Horizontal offset for shadow effect |
 | `shadowOffsetY` | `number` | `0` | No | Vertical offset for shadow effect |
 | `shadowOpacity` | `number` | `1` | No | Opacity of the shadow effect (0-1) |
+| `shadowBlur` | `number` | `0` | No | Blur radius for shadow effect |
 | `x` | `number` | `width / 2` | No | X position of the text (auto-centered if not provided) |
 | `y` | `number` | `height / 2` or `auto-calculated` | No | Y position of the text (auto-centered if not provided) |
 | `textAnchor` | `'start' \| 'middle' \| 'end'` | `'middle'` | No | Text alignment anchor |

@@ -23,6 +23,7 @@ interface SvgTextOutlinedProps {
   shadowOffsetX?: number;
   shadowOffsetY?: number;
   shadowOpacity?: number;
+  shadowBlur?: number;
   x?: number;
   y?: number;
   textAnchor?: "start" | "middle" | "end";
@@ -71,6 +72,33 @@ const wrapText = (text: string, maxWidth: number, fontSize: number): string[] =>
   return lines;
 };
 
+// Helper function to generate blur layers
+const generateBlurLayers = (shadowBlur: number): Array<{ offsetX: number; offsetY: number; opacity: number }> => {
+  if (shadowBlur <= 0) return [];
+  
+  const layers: Array<{ offsetX: number; offsetY: number; opacity: number }> = [];
+  const maxLayers = Math.min(Math.floor(shadowBlur / 2), 8); // Limit to 8 layers for performance
+  
+  for (let i = 1; i <= maxLayers; i++) {
+    const progress = i / maxLayers;
+    const offset = (shadowBlur * progress) / 2;
+    const opacity = (1 - progress) * 0.3; // Fade out as we go further
+    
+    // Create multiple offset positions around the main shadow
+    const angles = [0, 45, 90, 135, 180, 225, 270, 315];
+    angles.forEach(angle => {
+      const rad = (angle * Math.PI) / 180;
+      layers.push({
+        offsetX: Math.cos(rad) * offset,
+        offsetY: Math.sin(rad) * offset,
+        opacity: opacity / angles.length
+      });
+    });
+  }
+  
+  return layers;
+};
+
 export function SvgTextOutlined({
   text,
   width,
@@ -83,6 +111,7 @@ export function SvgTextOutlined({
   shadowOffsetX = 0,
   shadowOffsetY = 0,
   shadowOpacity = 1,
+  shadowBlur = 0,
   x,
   y,
   textAnchor = "middle",
@@ -159,9 +188,27 @@ export function SvgTextOutlined({
             ? { textDecoration } 
             : {};
           
+          // Generate blur layers
+          const blurLayers = generateBlurLayers(shadowBlur);
+          
           return (
             <React.Fragment key={index}>
-              {/* Shadow text - positioned with dynamic x and y offsets */}
+              {/* Blur shadow layers */}
+              {blurLayers.map((layer, layerIndex) => (
+                <SvgText
+                  key={`blur-${layerIndex}`}
+                  {...commonTextProps}
+                  {...textDecorationProps}
+                  fill={shadowColor}
+                  opacity={shadowOpacity * layer.opacity}
+                  x={textX + shadowOffsetX + layer.offsetX}
+                  y={lineY + shadowOffsetY + layer.offsetY}
+                >
+                  {line}
+                </SvgText>
+              ))}
+              
+              {/* Main shadow text - positioned with dynamic x and y offsets */}
               <SvgText
                 {...commonTextProps}
                 {...textDecorationProps}
