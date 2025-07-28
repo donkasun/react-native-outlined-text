@@ -1,57 +1,17 @@
-# React Native Outlined Text
+# react-native-outlined-text
 
 [![React Native](https://img.shields.io/badge/react%20native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactnative.dev/)
 [![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React Native SVG](https://img.shields.io/badge/react%20native%20svg-%23E23237.svg?style=for-the-badge&logo=svg&logoColor=white)](https://github.com/react-native-svg/react-native-svg)
-[![Jest](https://img.shields.io/badge/jest-%23C21325.svg?style=for-the-badge&logo=jest&logoColor=white)](https://jestjs.io/)
-[![ESLint](https://img.shields.io/badge/eslint-%234B32C3.svg?style=for-the-badge&logo=eslint&logoColor=white)](https://eslint.org/)
 
-A React Native component for creating outlined text with customizable stroke effects and automatic text wrapping.
-
-## Overview
-
-React Native Outlined Text provides a flexible and performant solution for displaying text with outline effects in React Native applications. Built with TypeScript and optimized for cross-platform compatibility, this component offers advanced text styling capabilities including automatic text wrapping, dynamic height calculation, and customizable stroke effects.
-
-## Project Status
-
-✅ **Production Ready**: The library is fully configured for npm publishing with:
-- Complete TypeScript build system
-- Proper entry points and module resolution
-- Metro bundler compatibility
-- ESLint and code quality tools
-- Automated build and publish workflow
-
-🔄 **Testing**: Test infrastructure is in place and being improved for SVG component compatibility in React Native Testing Library environments.
-
-## Features
-
-- **Customizable Stroke Effects**: Adjustable stroke width and color for text outlines
-- **Shadow Effects**: Enhanced visual appeal with customizable shadow colors
-- **Cross-Platform Compatibility**: Works seamlessly on both iOS and Android
-- **Lightweight and Performant**: Optimized for smooth rendering and minimal memory usage
-- **TypeScript Support**: Full type safety and IntelliSense support
-- **Production Ready**: Properly configured for npm publishing with build system
-- **Precise Positioning**: Advanced positioning and alignment control
-- **Multiple Text Effects**: Support for stroke, fill, and shadow combinations
-- **Automatic Text Wrapping**: Intelligent text wrapping for long content
-- **Dynamic Height Calculation**: Automatic height adjustment based on content
-- **Component Variants**: Two component options for different use cases
-- **Metro Compatible**: Configured for React Native bundler compatibility
+An enhanced, customizable React Native component for creating outlined text with stroke effects and automatic text wrapping.
 
 ## Installation
 
-### Prerequisites
-
-- React Native >= 0.60.0
-- React >= 16.8.0
-- react-native-svg >= 12.0.0
-
-### Install Dependencies
-
 ```bash
-npm install react-native-outlined-text react-native-svg
+npm install @donkasun/react-native-outlined-text react-native-svg
 # or
-yarn add react-native-outlined-text react-native-svg
+yarn add @donkasun/react-native-outlined-text react-native-svg
 ```
 
 ### iOS Setup (if using CocoaPods)
@@ -62,389 +22,139 @@ cd ios && pod install
 
 ## Quick Start
 
-### Basic Usage
-
 ```tsx
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { OutlinedText } from 'react-native-outlined-text';
+import { View } from 'react-native';
+import { OutlinedText } from '@donkasun/react-native-outlined-text';
 
 const App = () => {
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <OutlinedText 
         text="Hello World"
         width={200}
+        strokeColor="black"
+        strokeWidth={2}
+        fillColor="white"
       />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-  },
-});
-
-export default App;
 ```
+
+## Features
+
+- **Customizable Stroke Effects**: Adjustable stroke width and color
+- **Shadow Effects**: Enhanced visual appeal with customizable shadows
+- **Automatic Text Wrapping**: Intelligent text wrapping for long content
+- **Cross-Platform**: Works seamlessly on iOS and Android
+- **TypeScript Support**: Full type safety and IntelliSense
+- **Two Component Variants**: `OutlinedText` and `SvgTextOutlined`
+
+## API Reference
+
+### OutlinedText & SvgTextOutlined Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| text | string | - | The text to display |
+| width | number | - | Width of the text container |
+| height | number | auto | Height of the text container |
+| fontSize | number | 26 | Font size of the text |
+| strokeColor | string | 'black' | Color of the text stroke |
+| strokeWidth | number | 1 | Width of the text stroke |
+| fillColor | string | 'white' | Color of the text fill |
+| shadowColor | string | '#000000' | Color of the shadow |
+| shadowOffsetX | number | 0 | Horizontal shadow offset |
+| shadowOffsetY | number | 0 | Vertical shadow offset |
+| shadowOpacity | number | 1 | Shadow opacity |
+| shadowBlur | number | 0 | Shadow blur radius |
+| x | number | center | X position of the text |
+| y | number | center | Y position of the text |
+| textAnchor | string | 'middle' | Text alignment ('start', 'middle', 'end') |
+| fontFamily | string | 'medium' | Font family to use |
+| letterSpacing | number | 0 | Letter spacing |
+| textTransform | string | 'none' | Text transformation ('none', 'uppercase', 'lowercase', 'capitalize') |
+| opacity | number | 1 | Text opacity |
 
 ### Advanced Usage
 
 ```tsx
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { OutlinedText, SvgTextOutlined } from 'react-native-outlined-text';
+import { OutlinedText, SvgTextOutlined } from '@donkasun/react-native-outlined-text';
 
-const AdvancedExample = () => {
-  return (
-    <View style={styles.container}>
-      {/* Custom stroke with shadow */}
-      <OutlinedText 
-        text="Custom Stroke"
-        width={200}
-        strokeWidth={3}
-        strokeColor="#ff0000"
-        shadowColor="#cccccc"
-        shadowOffsetX={4}
-        shadowOffsetY={4}
-      />
+// Basic outlined text
+<OutlinedText 
+  text="Outlined Text"
+  width={300}
+  fontSize={24}
+  strokeColor="#FF6B6B"
+  strokeWidth={3}
+  fillColor="#4ECDC4"
+/>
 
-      {/* Text with wrapping */}
-      <SvgTextOutlined 
-        text="This is a very long text that will automatically wrap to multiple lines when it exceeds the specified width"
-        width={150}
-        fontSize={16}
-        strokeColor="#333"
-        fillColor="#fff"
-      />
+// Text with shadow effects
+<SvgTextOutlined 
+  text="Shadow Text"
+  width={250}
+  fontSize={20}
+  strokeColor="black"
+  strokeWidth={2}
+  fillColor="white"
+  shadowColor="#FF6B6B"
+  shadowOffsetX={3}
+  shadowOffsetY={3}
+  shadowOpacity={0.8}
+  shadowBlur={5}
+/>
 
-      {/* Positioned text */}
-      <OutlinedText 
-        text="Positioned Text"
-        width={200}
-        x={50}
-        y={50}
-        textAnchor="start"
-        fontSize={24}
-      />
-
-      {/* Text with custom shadow offset */}
-      <OutlinedText 
-        text="Shadow Offset"
-        width={200}
-        shadowColor="#666"
-        shadowOffsetX={6}
-        shadowOffsetY={2}
-        shadowOpacity={0.7}
-        shadowBlur={4}
-        fontSize={20}
-      />
-
-      {/* Text with asymmetric shadow */}
-      <OutlinedText 
-        text="Asymmetric Shadow"
-        width={200}
-        shadowColor="#999"
-        shadowOffsetX={8}
-        shadowOffsetY={-3}
-        shadowOpacity={0.5}
-        fontSize={18}
-      />
-
-      {/* Text with subtle shadow */}
-      <OutlinedText 
-        text="Subtle Shadow"
-        width={200}
-        shadowColor="#000"
-        shadowOffsetX={2}
-        shadowOffsetY={2}
-        shadowOpacity={0.3}
-        fontSize={16}
-      />
-
-      {/* Text with blurred shadow */}
-      <OutlinedText 
-        text="Blurred Shadow"
-        width={200}
-        shadowColor="#333"
-        shadowOffsetX={3}
-        shadowOffsetY={3}
-        shadowOpacity={0.8}
-        shadowBlur={8}
-        fontSize={18}
-      />
-    </View>
-  );
-};
+// Long text with wrapping
+<OutlinedText 
+  text="This is a longer text that will automatically wrap to multiple lines when it exceeds the specified width"
+  width={200}
+  fontSize={16}
+  strokeColor="black"
+  strokeWidth={2}
+  fillColor="white"
+/>
 ```
 
-## Components
+## Component Variants
 
 ### OutlinedText
-
-The main component with backward compatibility. Extends `SvgTextOutlined` with additional styling options and View props support.
-
-**Best for**: General use cases, when you need View styling capabilities.
+- Wrapper component with automatic positioning
+- Easier to use for most cases
+- Handles layout automatically
 
 ### SvgTextOutlined
+- Direct SVG text component
+- More control over positioning
+- Better for complex layouts
 
-The core component with text wrapping functionality. Use this for maximum control over text rendering and performance.
+## Frequently Asked Questions
 
-**Best for**: Performance-critical applications, when you need precise control over text rendering.
+### The text is not displaying correctly
 
-## API Reference
+Make sure you have installed `react-native-svg` as it's a required peer dependency.
 
-### Props
+### How can I center the text?
 
-| Prop | Type | Default | Required | Description |
-|------|------|---------|----------|-------------|
-| `text` | `string` | - | Yes | Text content to display |
-| `width` | `number` | - | Yes | Width of the SVG container |
-| `height` | `number` | `undefined` | No | Height of the SVG container (auto-calculated if not provided) |
-| `fontSize` | `number` | `26` | No | Font size of the text |
-| `strokeWidth` | `number` | `1` | No | Width of the text outline |
-| `strokeColor` | `string` | `'black'` | No | Color of the text outline |
-| `fillColor` | `string` | `'white'` | No | Color of the text fill |
-| `shadowColor` | `string` | `'#000000'` | No | Color of the shadow effect |
-| `shadowOffsetX` | `number` | `0` | No | Horizontal offset for shadow effect |
-| `shadowOffsetY` | `number` | `0` | No | Vertical offset for shadow effect |
-| `shadowOpacity` | `number` | `1` | No | Opacity of the shadow effect (0-1) |
-| `shadowBlur` | `number` | `0` | No | Blur radius for shadow effect |
-| `x` | `number` | `width / 2` | No | X position of the text (auto-centered if not provided) |
-| `y` | `number` | `height / 2` or `auto-calculated` | No | Y position of the text (auto-centered if not provided) |
-| `textAnchor` | `'start' \| 'middle' \| 'end'` | `'middle'` | No | Text alignment anchor |
-| `verticalOffset` | `number` | `0` | No | Vertical offset from center |
-| `lineHeight` | `number` | `undefined` | No | Custom line height for wrapped text |
-| `style` | `ViewStyle` | - | No | Additional container styles (OutlinedText only) |
+The text is centered by default. You can use the `textAnchor` prop to change alignment:
+- `'start'` - Left align
+- `'middle'` - Center align (default)
+- `'end'` - Right align
 
-### Text Anchor Values
+### Can I use custom fonts?
 
-- `'start'`: Aligns text to the left
-- `'middle'`: Centers text horizontally
-- `'end'`: Aligns text to the right
+Yes, you can use the `fontFamily` prop. Make sure your fonts are properly linked in your React Native project.
 
-## Advanced Features
+### How do I add shadow effects?
 
-### Text Wrapping
-
-The component automatically wraps long text into multiple lines based on the specified width:
-
-```tsx
-<SvgTextOutlined 
-  text="This long text will wrap automatically to fit within the specified width"
-  width={150}
-  fontSize={16}
-/>
-```
-
-### Dynamic Height
-
-Height is now optional - the component calculates the required height based on content:
-
-```tsx
-// Height will be calculated automatically
-<OutlinedText text="Hello World" width={200} />
-
-// Or specify a fixed height
-<OutlinedText text="Hello World" width={200} height={100} />
-```
-
-### Custom Positioning
-
-Advanced positioning control with automatic centering:
-
-```tsx
-<OutlinedText 
-  text="Custom Position"
-  width={200}
-  x={50}
-  y={75}
-  textAnchor="start"
-  verticalOffset={10}
-/>
-```
-
-## Development
-
-### Prerequisites
-
-- Node.js >= 14
-- npm or yarn
-- React Native development environment
-
-### Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/donkasun/react-native-outlined-text.git
-
-# Navigate to the project directory
-cd react-native-outlined-text
-
-# Install dependencies
-npm install
-
-# Build the library
-npm run build
-
-# Run tests
-npm test
-
-# Run linter
-npm run lint
-```
-
-### Available Scripts
-
-- `npm run build` - Build the TypeScript library
-- `npm run dev` - Watch mode for development
-- `npm run test` - Run tests (Note: Currently being improved)
-- `npm run lint` - Run ESLint
-- `npm run lint:fix` - Fix ESLint issues
-- `npm run clean` - Clean build directory
-- `npm run prepublishOnly` - Clean and build before publishing
-
-### Testing
-
-The project includes test coverage for both components. Note that tests are currently being improved to handle SVG component testing in React Native environments:
-
-```bash
-# Run all tests
-npm test
-
-# Run tests with coverage
-npm test -- --coverage
-
-# Run tests in watch mode
-npm test -- --watch
-```
-
-**Note**: Test infrastructure is in place, but SVG component testing in React Native Testing Library requires additional configuration. The library is fully functional and ready for production use.
-
-## Performance Considerations
-
-- **Text Wrapping**: The text wrapping algorithm uses character estimation for performance. For more accurate wrapping, consider using a text measurement library.
-- **Rendering**: The component renders three SVG text elements (shadow, stroke, fill) for each line. For very long text, consider performance implications.
-- **Memory Usage**: SVG elements are lightweight, but monitor memory usage with large amounts of text.
-
-## Browser Support
-
-This component is designed for React Native and requires `react-native-svg` for SVG rendering support.
+Use the shadow props: `shadowColor`, `shadowOffsetX`, `shadowOffsetY`, `shadowOpacity`, and `shadowBlur`.
 
 ## Contributing
 
-We welcome contributions from the community! Here's how you can help:
-
-### Reporting Issues
-
-- Check existing issues before creating a new one
-- Provide detailed reproduction steps
-- Include device/OS information
-- Share relevant code snippets
-
-### Submitting Pull Requests
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass
-6. Commit your changes (`git commit -m 'Add some amazing feature'`)
-7. Push to the branch (`git push origin feature/amazing-feature`)
-8. Open a Pull Request
-
-### Development Guidelines
-
-- Follow the existing code style
-- Add TypeScript types for new features
-- Include comprehensive tests
-- Update documentation for new features
-- Ensure cross-platform compatibility
+Pull requests, feedback, and suggestions are welcome!
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-### Getting Help
-
-If you encounter any issues or have questions:
-
-1. **Check the Documentation**: Review this README and the examples above
-2. **Search Issues**: Look for similar issues in the [GitHub Issues](https://github.com/donkasun/react-native-outlined-text/issues)
-3. **Create an Issue**: If you can't find a solution, create a new issue with detailed information
-
-### Community
-
-- **GitHub Issues**: [Report bugs and request features](https://github.com/donkasun/react-native-outlined-text/issues)
-- **GitHub Discussions**: [Ask questions and share ideas](https://github.com/donkasun/react-native-outlined-text/discussions)
-
-## Changelog
-
-### v0.2.0
-- Added automatic text wrapping functionality
-- Made height prop optional with dynamic calculation
-- Introduced SvgTextOutlined component for advanced use cases
-- Improved text positioning and centering
-- Enhanced shadow effects with new default color
-- Added production-ready build system and infrastructure
-- Configured Metro bundler compatibility
-- Added proper TypeScript build configuration
-- Set up npm publishing workflow
-
-### v0.1.0
-- Initial release
-- Basic outlined text functionality
-- Customizable stroke and fill colors
-- Shadow effects
-- Cross-platform compatibility
-
-## Example App
-
-A comprehensive example app is included in the `example/` directory that demonstrates all features of the library:
-
-### 🎯 Features Showcased
-- Basic outlined text with stroke and fill effects
-- Custom colors and stroke widths
-- Shadow effects with offset and opacity
-- Blur shadow effects with multiple layers
-- Automatic text wrapping for long content
-- Text alignment options (start, middle, end)
-- Custom positioning and advanced effects
-- SvgTextOutlined component usage
-
-### 🚀 Quick Start
-```bash
-# Navigate to example directory
-cd example
-
-# Install dependencies
-npm install
-
-# Run on iOS
-npm run ios
-
-# Run on Android
-npm run android
-```
-
-### 📱 Interactive Demo
-The example app provides an interactive interface to explore all features:
-- Navigate through different examples with Previous/Next buttons
-- View real-time rendering of all effects
-- See code examples for each feature
-- Comprehensive feature documentation
-
-For detailed setup instructions, see the [example README](example/README.md).
-
-## Acknowledgments
-
-- Built with [react-native-svg](https://github.com/react-native-svg/react-native-svg)
-- Inspired by the need for better text styling in React Native applications
-- Thanks to all contributors and the React Native community
-- Production-ready infrastructure configured for reliable npm publishing 
+MIT © [donkasun](https://github.com/donkasun) 

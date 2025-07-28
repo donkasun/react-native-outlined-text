@@ -1,5 +1,5 @@
 {
-  "name": "react-native-outlined-text",
+  "name": "@donkasun/react-native-outlined-text",
   "version": "0.2.0",
   "description": "A React Native component for creating outlined text with customizable stroke effects and automatic text wrapping",
   "main": "lib/index.js",
@@ -12,7 +12,11 @@
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md}\""
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
+    "release": "node scripts/release.js",
+    "release:patch": "node scripts/release.js patch",
+    "release:minor": "node scripts/release.js minor",
+    "release:major": "node scripts/release.js major"
   },
   "keywords": [
     "react-native",
