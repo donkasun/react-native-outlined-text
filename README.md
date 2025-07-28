@@ -49,11 +49,11 @@ const App = () => {
 - **Automatic Text Wrapping**: Intelligent text wrapping for long content
 - **Cross-Platform**: Works seamlessly on iOS and Android
 - **TypeScript Support**: Full type safety and IntelliSense
-- **Two Component Variants**: `OutlinedText` and `SvgTextOutlined`
+- **Single Component**: `OutlinedText` for all outlined text needs
 
 ## API Reference
 
-### OutlinedText & SvgTextOutlined Props
+### OutlinedText Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
@@ -80,7 +80,7 @@ const App = () => {
 ### Advanced Usage
 
 ```tsx
-import { OutlinedText, SvgTextOutlined } from '@donkasun/react-native-outlined-text';
+import { OutlinedText } from '@donkasun/react-native-outlined-text';
 
 // Basic outlined text
 <OutlinedText 
@@ -93,7 +93,7 @@ import { OutlinedText, SvgTextOutlined } from '@donkasun/react-native-outlined-t
 />
 
 // Text with shadow effects
-<SvgTextOutlined 
+<OutlinedText 
   text="Shadow Text"
   width={250}
   fontSize={20}
@@ -118,17 +118,13 @@ import { OutlinedText, SvgTextOutlined } from '@donkasun/react-native-outlined-t
 />
 ```
 
-## Component Variants
+## Component Features
 
 ### OutlinedText
-- Wrapper component with automatic positioning
-- Easier to use for most cases
-- Handles layout automatically
-
-### SvgTextOutlined
-- Direct SVG text component
-- More control over positioning
-- Better for complex layouts
+- Automatic positioning and layout handling
+- Easy to use with sensible defaults
+- Full control over styling and effects
+- Built-in text wrapping for long content
 
 ## Frequently Asked Questions
 

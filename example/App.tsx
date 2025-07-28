@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { OutlinedText, SvgTextOutlined } from '@donkasun/react-native-outlined-text';
+import { OutlinedText } from '@donkasun/react-native-outlined-text';
 
 export default function App() {
   return (
