@@ -262,7 +262,7 @@ export type { SvgTextOutlinedProps };
 // Keep the original interface for backward compatibility
 export interface OutlinedTextProps extends SvgTextOutlinedProps {}
 
-const OutlinedText: React.FC<OutlinedTextProps> = props => {
+const OutlinedText = (props: OutlinedTextProps) => {
   return <SvgTextOutlined {...props} />;
 };
 
