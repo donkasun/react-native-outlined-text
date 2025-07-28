@@ -2,15 +2,6 @@ import React from 'react';
 import { View } from 'react-native';
 import Svg, { Text as SvgText } from 'react-native-svg';
 
-const typography = {
-  fontFamily: {
-    regular: 'Nunito-Regular',
-    medium: 'Nunito-Medium',
-    semiBold: 'Nunito-SemiBold',
-    bold: 'Nunito-Bold',
-  },
-} as const;
-
 interface SvgTextOutlinedProps {
   text: string;
   width: number;
@@ -27,8 +18,7 @@ interface SvgTextOutlinedProps {
   x?: number;
   y?: number;
   textAnchor?: 'start' | 'middle' | 'end';
-  fontFamily?: keyof typeof typography.fontFamily;
-  fontWeight?: keyof typeof typography.fontFamily;
+  fontFamily?: string;
   letterSpacing?: number;
   textTransform?: 'none' | 'uppercase' | 'lowercase' | 'capitalize';
   textDecoration?: 'none' | 'underline' | 'line-through';
@@ -122,17 +112,12 @@ export function SvgTextOutlined({
   x,
   y,
   textAnchor = 'middle',
-  fontFamily = 'medium',
-  fontWeight,
+  fontFamily = 'System',
   letterSpacing,
   textTransform = 'none',
   textDecoration = 'none',
   opacity = 1,
 }: SvgTextOutlinedProps) {
-  // Determine final font family
-  const finalFontFamily = fontWeight || fontFamily;
-  const finalFontFamilyValue = typography.fontFamily[finalFontFamily];
-
   // Apply text transformations
   const processedText = (() => {
     let result = text;
@@ -185,7 +170,7 @@ export function SvgTextOutlined({
             x: textX,
             y: lineY,
             textAnchor,
-            fontFamily: finalFontFamilyValue,
+            fontFamily,
             opacity,
             ...(letterSpacing && { letterSpacing }),
           };
@@ -252,9 +237,6 @@ export function SvgTextOutlined({
     </View>
   );
 }
-
-// Export the typography object for external use if needed
-export { typography };
 
 // Export types for external use
 export type { SvgTextOutlinedProps };
