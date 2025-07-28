@@ -1,7 +1,7 @@
 {
-  "name": "react-native-outlined-text",
-  "version": "0.1.0",
-  "description": "A React Native component for creating outlined text with customizable stroke effects",
+  "name": "@donkasun/react-native-outlined-text",
+  "version": "0.2.2",
+  "description": "A React Native component for creating outlined text with customizable stroke effects and automatic text wrapping",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -9,9 +9,14 @@
     "dev": "tsc --watch",
     "clean": "rm -rf lib",
     "prepublishOnly": "npm run clean && npm run build",
-    "test": "jest",
     "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix"
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
+    "release": "node scripts/release.js",
+    "release:patch": "node scripts/release.js patch",
+    "release:minor": "node scripts/release.js minor",
+    "release:major": "node scripts/release.js major"
   },
   "keywords": [
     "react-native",
@@ -19,26 +24,26 @@
     "text-stroke",
     "stroke-text",
     "text-outline",
+    "text-wrapping",
     "react-native-component"
   ],
   "author": "donkasun",
   "license": "MIT",
   "peerDependencies": {
-    "react": ">=16.8.0",
+    "react": ">=18.0.0",
     "react-native": ">=0.60.0",
     "react-native-svg": ">=12.0.0"
   },
   "devDependencies": {
-    "@types/react": "^19.0.0",
+    "@types/react": "^19.0.10",
     "@types/react-native": "^0.72.0",
+    "prettier": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.0.0",
     "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "jest": "^29.0.0",
     "typescript": "^5.0.0",
-    "@testing-library/react-native": "^12.0.0",
     "react-native-svg": "^14.0.0"
   },
   "repository": {
@@ -49,4 +54,4 @@
     "url": "https://github.com/donkasun/react-native-outlined-text/issues"
   },
   "homepage": "https://github.com/donkasun/react-native-outlined-text#readme"
-} 
+}

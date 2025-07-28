@@ -1,0 +1,1 @@
+export { default as OutlinedText, SvgTextOutlined } from './lib/index.js'; 
