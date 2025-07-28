@@ -109,6 +109,8 @@ const AdvancedExample = () => {
         strokeWidth={3}
         strokeColor="#ff0000"
         shadowColor="#cccccc"
+        shadowOffsetX={4}
+        shadowOffsetY={4}
       />
 
       {/* Text with wrapping */}
@@ -128,6 +130,52 @@ const AdvancedExample = () => {
         y={50}
         textAnchor="start"
         fontSize={24}
+      />
+
+      {/* Text with custom shadow offset */}
+      <OutlinedText 
+        text="Shadow Offset"
+        width={200}
+        shadowColor="#666"
+        shadowOffsetX={6}
+        shadowOffsetY={2}
+        shadowOpacity={0.7}
+        shadowBlur={4}
+        fontSize={20}
+      />
+
+      {/* Text with asymmetric shadow */}
+      <OutlinedText 
+        text="Asymmetric Shadow"
+        width={200}
+        shadowColor="#999"
+        shadowOffsetX={8}
+        shadowOffsetY={-3}
+        shadowOpacity={0.5}
+        fontSize={18}
+      />
+
+      {/* Text with subtle shadow */}
+      <OutlinedText 
+        text="Subtle Shadow"
+        width={200}
+        shadowColor="#000"
+        shadowOffsetX={2}
+        shadowOffsetY={2}
+        shadowOpacity={0.3}
+        fontSize={16}
+      />
+
+      {/* Text with blurred shadow */}
+      <OutlinedText 
+        text="Blurred Shadow"
+        width={200}
+        shadowColor="#333"
+        shadowOffsetX={3}
+        shadowOffsetY={3}
+        shadowOpacity={0.8}
+        shadowBlur={8}
+        fontSize={18}
       />
     </View>
   );
@@ -161,7 +209,11 @@ The core component with text wrapping functionality. Use this for maximum contro
 | `strokeWidth` | `number` | `1` | No | Width of the text outline |
 | `strokeColor` | `string` | `'black'` | No | Color of the text outline |
 | `fillColor` | `string` | `'white'` | No | Color of the text fill |
-| `shadowColor` | `string` | `'#BFC1F9'` | No | Color of the shadow effect |
+| `shadowColor` | `string` | `'#000000'` | No | Color of the shadow effect |
+| `shadowOffsetX` | `number` | `0` | No | Horizontal offset for shadow effect |
+| `shadowOffsetY` | `number` | `0` | No | Vertical offset for shadow effect |
+| `shadowOpacity` | `number` | `1` | No | Opacity of the shadow effect (0-1) |
+| `shadowBlur` | `number` | `0` | No | Blur radius for shadow effect |
 | `x` | `number` | `width / 2` | No | X position of the text (auto-centered if not provided) |
 | `y` | `number` | `height / 2` or `auto-calculated` | No | Y position of the text (auto-centered if not provided) |
 | `textAnchor` | `'start' \| 'middle' \| 'end'` | `'middle'` | No | Text alignment anchor |
@@ -351,6 +403,44 @@ If you encounter any issues or have questions:
 - Customizable stroke and fill colors
 - Shadow effects
 - Cross-platform compatibility
+
+## Example App
+
+A comprehensive example app is included in the `example/` directory that demonstrates all features of the library:
+
+### 🎯 Features Showcased
+- Basic outlined text with stroke and fill effects
+- Custom colors and stroke widths
+- Shadow effects with offset and opacity
+- Blur shadow effects with multiple layers
+- Automatic text wrapping for long content
+- Text alignment options (start, middle, end)
+- Custom positioning and advanced effects
+- SvgTextOutlined component usage
+
+### 🚀 Quick Start
+```bash
+# Navigate to example directory
+cd example
+
+# Install dependencies
+npm install
+
+# Run on iOS
+npm run ios
+
+# Run on Android
+npm run android
+```
+
+### 📱 Interactive Demo
+The example app provides an interactive interface to explore all features:
+- Navigate through different examples with Previous/Next buttons
+- View real-time rendering of all effects
+- See code examples for each feature
+- Comprehensive feature documentation
+
+For detailed setup instructions, see the [example README](example/README.md).
 
 ## Acknowledgments
 

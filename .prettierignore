@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+lib/
+dist/
+build/
+
+# Coverage reports
+coverage/
+
+# Package files
+package-lock.json
+yarn.lock
+
+# Git
+.git/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db 
