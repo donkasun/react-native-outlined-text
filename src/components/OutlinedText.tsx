@@ -1,6 +1,40 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import Svg, { Text as SvgText } from 'react-native-svg';
+
+// Platform-specific default fonts
+const getDefaultFontFamily = (): string => {
+  if (Platform.OS === 'ios') {
+    return 'System';
+  } else if (Platform.OS === 'android') {
+    return 'Roboto';
+  }
+  return 'Arial'; // Web fallback
+};
+
+// Helper function to create font fallback chain
+const createFontFallback = (fontFamily?: string): string => {
+  if (!fontFamily) {
+    return getDefaultFontFamily();
+  }
+  
+  // If user provides a font family, create a fallback chain
+  const fallbacks = [];
+  
+  // Add the user's font family
+  fallbacks.push(fontFamily);
+  
+  // Add platform-specific fallbacks
+  if (Platform.OS === 'ios') {
+    fallbacks.push('System', 'Helvetica Neue', 'Helvetica');
+  } else if (Platform.OS === 'android') {
+    fallbacks.push('Roboto', 'Noto Sans', 'sans-serif');
+  } else {
+    fallbacks.push('Arial', 'Helvetica', 'sans-serif');
+  }
+  
+  return fallbacks.join(', ');
+};
 
 interface SvgTextOutlinedProps {
   text: string;
@@ -18,7 +52,7 @@ interface SvgTextOutlinedProps {
   x?: number;
   y?: number;
   textAnchor?: 'start' | 'middle' | 'end';
-  fontFamily?: string;
+  fontFamily?: string; // Font family name. If not provided, uses platform-specific defaults with fallbacks
   letterSpacing?: number;
   textTransform?: 'none' | 'uppercase' | 'lowercase' | 'capitalize';
   textDecoration?: 'none' | 'underline' | 'line-through';
@@ -112,12 +146,15 @@ export function SvgTextOutlined({
   x,
   y,
   textAnchor = 'middle',
-  fontFamily = 'System',
+  fontFamily,
   letterSpacing,
   textTransform = 'none',
   textDecoration = 'none',
   opacity = 1,
 }: SvgTextOutlinedProps) {
+  // Use font fallback chain for better reliability
+  const finalFontFamily = createFontFallback(fontFamily);
+
   // Apply text transformations
   const processedText = (() => {
     let result = text;
@@ -170,7 +207,7 @@ export function SvgTextOutlined({
             x: textX,
             y: lineY,
             textAnchor,
-            fontFamily,
+            fontFamily: finalFontFamily,
             opacity,
             ...(letterSpacing && { letterSpacing }),
           };
