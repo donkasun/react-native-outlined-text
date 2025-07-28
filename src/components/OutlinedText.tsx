@@ -1,15 +1,85 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import Svg, { Text as SvgText } from 'react-native-svg';
 
-const typography = {
-  fontFamily: {
-    regular: 'Nunito-Regular',
-    medium: 'Nunito-Medium',
-    semiBold: 'Nunito-SemiBold',
-    bold: 'Nunito-Bold',
-  },
+// Platform-specific default fonts
+const getDefaultFontFamily = (): string => {
+  if (Platform.OS === 'ios') {
+    return 'System';
+  } else if (Platform.OS === 'android') {
+    return 'Roboto';
+  }
+  return 'Arial'; // Web fallback
+};
+
+// Font weight mapping for better cross-platform support
+const fontWeights = {
+  thin: '100',
+  '100': '100',
+  light: '200',
+  '200': '200',
+  '300': '300',
+  normal: '400',
+  '400': '400',
+  medium: '500',
+  '500': '500',
+  '600': '600',
+  semibold: '600',
+  bold: '700',
+  '700': '700',
+  '800': '800',
+  heavy: '800',
+  '900': '900',
+  black: '900',
 } as const;
+
+// Font style options
+const fontStyles = {
+  normal: 'normal',
+  italic: 'italic',
+} as const;
+
+// Helper function to validate font family
+const validateFontFamily = (fontFamily?: string): boolean => {
+  if (!fontFamily) return false;
+  
+  // Basic validation - check if it's a non-empty string
+  if (typeof fontFamily !== 'string' || fontFamily.trim() === '') {
+    return false;
+  }
+  
+  // Check for common invalid font names
+  const invalidNames = ['undefined', 'null', 'System', 'Default'];
+  if (invalidNames.includes(fontFamily.trim())) {
+    return false;
+  }
+  
+  return true;
+};
+
+// Helper function to create font fallback chain
+const createFontFallback = (fontFamily?: string): string => {
+  if (!fontFamily || !validateFontFamily(fontFamily)) {
+    return getDefaultFontFamily();
+  }
+  
+  // If user provides a font family, create a fallback chain
+  const fallbacks = [];
+  
+  // Add the user's font family
+  fallbacks.push(fontFamily);
+  
+  // Add platform-specific fallbacks
+  if (Platform.OS === 'ios') {
+    fallbacks.push('System', 'Helvetica Neue', 'Helvetica');
+  } else if (Platform.OS === 'android') {
+    fallbacks.push('Roboto', 'Noto Sans', 'sans-serif');
+  } else {
+    fallbacks.push('Arial', 'Helvetica', 'sans-serif');
+  }
+  
+  return fallbacks.join(', ');
+};
 
 interface SvgTextOutlinedProps {
   text: string;
@@ -27,26 +97,71 @@ interface SvgTextOutlinedProps {
   x?: number;
   y?: number;
   textAnchor?: 'start' | 'middle' | 'end';
-  fontFamily?: keyof typeof typography.fontFamily;
-  fontWeight?: keyof typeof typography.fontFamily;
+  fontFamily?: string; // Font family name. If not provided, uses platform-specific defaults with fallbacks
+  fontWeight?: keyof typeof fontWeights | string; // Font weight (100-900, 'normal', 'bold', etc.)
+  fontStyle?: keyof typeof fontStyles; // Font style ('normal', 'italic')
   letterSpacing?: number;
   textTransform?: 'none' | 'uppercase' | 'lowercase' | 'capitalize';
   textDecoration?: 'none' | 'underline' | 'line-through';
   opacity?: number;
 }
 
-// Helper function to estimate text width
-const estimateTextWidth = (text: string, fontSize: number): number => {
-  // Rough estimation: each character is approximately 0.6 * fontSize wide
-  // This is a simplified approach - for more accuracy, you'd need a proper text measurement library
-  return text.length * fontSize * 0.6;
+// Helper function to estimate text width with better accuracy
+const estimateTextWidth = (
+  text: string, 
+  fontSize: number, 
+  fontFamily?: string,
+  fontWeight?: string,
+  fontStyle?: string
+): number => {
+  // More accurate estimation based on font characteristics
+  let charWidth = 0.6; // Default character width ratio
+  
+  // Adjust based on font weight
+  if (fontWeight) {
+    const weight = parseInt(fontWeight);
+    if (weight >= 700) {
+      charWidth = 0.65; // Bold fonts are wider
+    } else if (weight <= 300) {
+      charWidth = 0.55; // Light fonts are narrower
+    }
+  }
+  
+  // Adjust based on font style
+  if (fontStyle === 'italic') {
+    charWidth *= 1.05; // Italic fonts are slightly wider
+  }
+  
+  // Adjust based on font family characteristics
+  if (fontFamily) {
+    const family = fontFamily.toLowerCase();
+    if (family.includes('mono') || family.includes('courier')) {
+      charWidth = 0.7; // Monospace fonts have consistent width
+    } else if (family.includes('condensed') || family.includes('narrow')) {
+      charWidth *= 0.85; // Condensed fonts are narrower
+    } else if (family.includes('wide') || family.includes('extended')) {
+      charWidth *= 1.15; // Wide fonts are broader
+    }
+  }
+  
+  // Calculate total width
+  const baseWidth = text.length * fontSize * charWidth;
+  
+  // Add extra space for word spacing
+  const wordCount = text.split(' ').length - 1;
+  const wordSpacing = wordCount * fontSize * 0.1;
+  
+  return baseWidth + wordSpacing;
 };
 
 // Helper function to wrap text into lines
 const wrapText = (
   text: string,
   maxWidth: number,
-  fontSize: number
+  fontSize: number,
+  fontFamily?: string,
+  fontWeight?: string,
+  fontStyle?: string
 ): string[] => {
   const words = text.split(' ');
   const lines: string[] = [];
@@ -54,7 +169,7 @@ const wrapText = (
 
   for (const word of words) {
     const testLine = currentLine ? `${currentLine} ${word}` : word;
-    const testWidth = estimateTextWidth(testLine, fontSize);
+    const testWidth = estimateTextWidth(testLine, fontSize, fontFamily, fontWeight, fontStyle);
 
     if (testWidth <= maxWidth) {
       currentLine = testLine;
@@ -122,16 +237,22 @@ export function SvgTextOutlined({
   x,
   y,
   textAnchor = 'middle',
-  fontFamily = 'medium',
+  fontFamily,
   fontWeight,
+  fontStyle,
   letterSpacing,
   textTransform = 'none',
   textDecoration = 'none',
   opacity = 1,
 }: SvgTextOutlinedProps) {
-  // Determine final font family
-  const finalFontFamily = fontWeight || fontFamily;
-  const finalFontFamilyValue = typography.fontFamily[finalFontFamily];
+  // Use font fallback chain for better reliability
+  const finalFontFamily = createFontFallback(fontFamily);
+  
+  // Process font weight
+  const finalFontWeight = fontWeight ? fontWeights[fontWeight as keyof typeof fontWeights] || fontWeight : undefined;
+  
+  // Process font style
+  const finalFontStyle = fontStyle || 'normal';
 
   // Apply text transformations
   const processedText = (() => {
@@ -153,7 +274,7 @@ export function SvgTextOutlined({
   })();
 
   // Wrap text into lines
-  const lines = wrapText(processedText, width, fontSize);
+  const lines = wrapText(processedText, width, fontSize, finalFontFamily, finalFontWeight, finalFontStyle);
 
   // Calculate total height needed for all lines
   const totalLineHeight = fontSize * 1.2;
@@ -185,7 +306,9 @@ export function SvgTextOutlined({
             x: textX,
             y: lineY,
             textAnchor,
-            fontFamily: finalFontFamilyValue,
+            fontFamily: finalFontFamily,
+            fontWeight: finalFontWeight,
+            fontStyle: finalFontStyle,
             opacity,
             ...(letterSpacing && { letterSpacing }),
           };
@@ -253,8 +376,8 @@ export function SvgTextOutlined({
   );
 }
 
-// Export the typography object for external use if needed
-export { typography };
+// Export font utilities for external use
+export { fontWeights, fontStyles };
 
 // Export types for external use
 export type { SvgTextOutlinedProps };
