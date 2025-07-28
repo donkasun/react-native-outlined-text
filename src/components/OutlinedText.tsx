@@ -42,18 +42,18 @@ const fontStyles = {
 // Helper function to validate font family
 const validateFontFamily = (fontFamily?: string): boolean => {
   if (!fontFamily) return false;
-  
+
   // Basic validation - check if it's a non-empty string
   if (typeof fontFamily !== 'string' || fontFamily.trim() === '') {
     return false;
   }
-  
+
   // Check for common invalid font names
   const invalidNames = ['undefined', 'null', 'System', 'Default'];
   if (invalidNames.includes(fontFamily.trim())) {
     return false;
   }
-  
+
   return true;
 };
 
@@ -62,13 +62,13 @@ const createFontFallback = (fontFamily?: string): string => {
   if (!fontFamily || !validateFontFamily(fontFamily)) {
     return getDefaultFontFamily();
   }
-  
+
   // If user provides a font family, create a fallback chain
   const fallbacks = [];
-  
+
   // Add the user's font family
   fallbacks.push(fontFamily);
-  
+
   // Add platform-specific fallbacks
   if (Platform.OS === 'ios') {
     fallbacks.push('System', 'Helvetica Neue', 'Helvetica');
@@ -77,7 +77,7 @@ const createFontFallback = (fontFamily?: string): string => {
   } else {
     fallbacks.push('Arial', 'Helvetica', 'sans-serif');
   }
-  
+
   return fallbacks.join(', ');
 };
 
@@ -108,15 +108,15 @@ interface SvgTextOutlinedProps {
 
 // Helper function to estimate text width with better accuracy
 const estimateTextWidth = (
-  text: string, 
-  fontSize: number, 
+  text: string,
+  fontSize: number,
   fontFamily?: string,
   fontWeight?: string,
   fontStyle?: string
 ): number => {
   // More accurate estimation based on font characteristics
   let charWidth = 0.6; // Default character width ratio
-  
+
   // Adjust based on font weight
   if (fontWeight) {
     const weight = parseInt(fontWeight);
@@ -126,12 +126,12 @@ const estimateTextWidth = (
       charWidth = 0.55; // Light fonts are narrower
     }
   }
-  
+
   // Adjust based on font style
   if (fontStyle === 'italic') {
     charWidth *= 1.05; // Italic fonts are slightly wider
   }
-  
+
   // Adjust based on font family characteristics
   if (fontFamily) {
     const family = fontFamily.toLowerCase();
@@ -143,14 +143,14 @@ const estimateTextWidth = (
       charWidth *= 1.15; // Wide fonts are broader
     }
   }
-  
+
   // Calculate total width
   const baseWidth = text.length * fontSize * charWidth;
-  
+
   // Add extra space for word spacing
   const wordCount = text.split(' ').length - 1;
   const wordSpacing = wordCount * fontSize * 0.1;
-  
+
   return baseWidth + wordSpacing;
 };
 
@@ -169,7 +169,13 @@ const wrapText = (
 
   for (const word of words) {
     const testLine = currentLine ? `${currentLine} ${word}` : word;
-    const testWidth = estimateTextWidth(testLine, fontSize, fontFamily, fontWeight, fontStyle);
+    const testWidth = estimateTextWidth(
+      testLine,
+      fontSize,
+      fontFamily,
+      fontWeight,
+      fontStyle
+    );
 
     if (testWidth <= maxWidth) {
       currentLine = testLine;
@@ -247,10 +253,12 @@ export function SvgTextOutlined({
 }: SvgTextOutlinedProps) {
   // Use font fallback chain for better reliability
   const finalFontFamily = createFontFallback(fontFamily);
-  
+
   // Process font weight
-  const finalFontWeight = fontWeight ? fontWeights[fontWeight as keyof typeof fontWeights] || fontWeight : undefined;
-  
+  const finalFontWeight = fontWeight
+    ? fontWeights[fontWeight as keyof typeof fontWeights] || fontWeight
+    : undefined;
+
   // Process font style
   const finalFontStyle = fontStyle || 'normal';
 
@@ -274,7 +282,14 @@ export function SvgTextOutlined({
   })();
 
   // Wrap text into lines
-  const lines = wrapText(processedText, width, fontSize, finalFontFamily, finalFontWeight, finalFontStyle);
+  const lines = wrapText(
+    processedText,
+    width,
+    fontSize,
+    finalFontFamily,
+    finalFontWeight,
+    finalFontStyle
+  );
 
   // Calculate total height needed for all lines
   const totalLineHeight = fontSize * 1.2;
