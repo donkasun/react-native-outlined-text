@@ -32,6 +32,20 @@ export default function App() {
             width={250}
           />
         </View>
+
+        <View style={styles.section}> 
+          <Text style={styles.sectionTitle}>Shadowed Outlined Text</Text>
+          <OutlinedText
+            text="Shadowed Text"
+            fontSize={48}
+            strokeWidth={1}
+            strokeColor="#000"
+            width={250}
+            shadowColor="#8c8c8c"
+            shadowOffsetX={4}
+            shadowOffsetY={4}
+          />
+        </View>
       </ScrollView>
     </View>
   );
