@@ -42,18 +42,50 @@ const App = () => {
 };
 ```
 
-## Screenshots
+## Examples
 
-<div align="center">
-  <img src="assets/screenshots/basic-example.png" alt="Basic Outlined Text Example" width="300" />
-  <p><em>Basic outlined text with stroke effects</em></p>
-  
-  <img src="assets/screenshots/colored-example.png" alt="Colored Outlined Text Example" width="300" />
-  <p><em>Colored stroke and fill with custom styling</em></p>
-  
-  <img src="assets/screenshots/shadow-example.png" alt="Shadow Effects Example" width="300" />
-  <p><em>Text with shadow effects and blur</em></p>
-</div>
+### Basic Outlined Text
+
+<img src="assets/screenshots/basic-example.png" alt="Basic Outlined Text Example" width="300" />
+
+```tsx
+<OutlinedText
+  text="Hello World!"
+  width={200}
+/>
+```
+
+### Colored Outlined Text
+
+<img src="assets/screenshots/colored-example.png" alt="Colored Outlined Text Example" width="300" />
+
+```tsx
+<OutlinedText
+  text="Colorful Text"
+  fontSize={28}
+  strokeWidth={2}
+  strokeColor="#ff6b6b"
+  fillColor="#FFFFFF"
+  width={250}
+/>
+```
+
+### Shadowed Outlined Text
+
+<img src="assets/screenshots/shadow-example.png" alt="Shadow Effects Example" width="300" />
+
+```tsx
+<OutlinedText
+  text="Shadowed Text"
+  fontSize={48}
+  strokeWidth={1}
+  strokeColor="#000"
+  width={250}
+  shadowColor="#8c8c8c"
+  shadowOffsetX={4}
+  shadowOffsetY={4}
+/>
+```
 
 ## Features
 
@@ -74,16 +106,16 @@ const App = () => {
 | width | number | - | Width of the text container |
 | height | number | auto | Height of the text container |
 | fontSize | number | 26 | Font size of the text |
-| strokeColor | string | 'black' | Color of the text stroke |
+| strokeColor | string | '#000000' | Color of the text stroke |
 | strokeWidth | number | 1 | Width of the text stroke |
-| fillColor | string | 'white' | Color of the text fill |
+| fillColor | string | '#FFFFFF' | Color of the text fill |
 | shadowColor | string | '#000000' | Color of the shadow |
 | shadowOffsetX | number | 0 | Horizontal shadow offset |
 | shadowOffsetY | number | 0 | Vertical shadow offset |
 | shadowOpacity | number | 1 | Shadow opacity |
 | shadowBlur | number | 0 | Shadow blur radius |
-| x | number | center | X position of the text |
-| y | number | center | Y position of the text |
+| x | number | width/2 | X position of the text |
+| y | number | height/2 | Y position of the text |
 | textAnchor | string | 'middle' | Text alignment ('start', 'middle', 'end') |
 | fontFamily | string | 'medium' | Font family to use |
 | letterSpacing | number | 0 | Letter spacing |
@@ -95,39 +127,26 @@ const App = () => {
 ```tsx
 import { OutlinedText } from '@donkasun/react-native-outlined-text';
 
-// Basic outlined text
 <OutlinedText 
-  text="Outlined Text"
+  text="Advanced Outlined Text"
   width={300}
+  height={100}
   fontSize={24}
   strokeColor="#FF6B6B"
-  strokeWidth={3}
-  fillColor="#4ECDC4"
-/>
-
-// Text with shadow effects
-<OutlinedText 
-  text="Shadow Text"
-  width={250}
-  fontSize={20}
-  strokeColor="black"
   strokeWidth={2}
-  fillColor="white"
-  shadowColor="#FF6B6B"
+  fillColor="#4ECDC4"
+  shadowColor="#8c8c8c"
   shadowOffsetX={3}
   shadowOffsetY={3}
   shadowOpacity={0.8}
   shadowBlur={5}
-/>
-
-// Long text with wrapping
-<OutlinedText 
-  text="This is a longer text that will automatically wrap to multiple lines when it exceeds the specified width"
-  width={200}
-  fontSize={16}
-  strokeColor="black"
-  strokeWidth={2}
-  fillColor="white"
+  x={150}
+  y={50}
+  textAnchor="middle"
+  fontFamily="Arial"
+  letterSpacing={1}
+  textTransform="uppercase"
+  opacity={0.9}
 />
 ```
 
