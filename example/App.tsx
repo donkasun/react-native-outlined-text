@@ -13,10 +13,7 @@ export default function App() {
           <Text style={styles.sectionTitle}>Basic OutlinedText</Text>
           <OutlinedText
             text="Hello World!"
-            fontSize={24}
-            strokeWidth={1}
-            strokeColor="#000"
-            fillColor="#fff"
+            fontSize={16}
             width={200}
           />
         </View>
@@ -25,7 +22,7 @@ export default function App() {
           <Text style={styles.sectionTitle}>Colored Outlined Text</Text>
           <OutlinedText
             text="Colorful Text"
-            fontSize={28}
+            fontSize={26}
             strokeWidth={2}
             strokeColor="#ff6b6b"
             fillColor="#FFFFFF"
@@ -38,8 +35,6 @@ export default function App() {
           <OutlinedText
             text="Shadowed Text"
             fontSize={48}
-            strokeWidth={1}
-            strokeColor="#000"
             width={250}
             shadowColor="#8c8c8c"
             shadowOffsetX={4}
