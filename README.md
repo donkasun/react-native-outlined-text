@@ -42,17 +42,71 @@ const App = () => {
 };
 ```
 
-## Screenshots
+## Examples
 
-<div align="center">
-  <img src="assets/screenshots/basic-example.png" alt="Basic Outlined Text Example" width="300" />
-  <p><em>Basic outlined text with stroke effects</em></p>
-  
-  <img src="assets/screenshots/colored-example.png" alt="Colored Outlined Text Example" width="300" />
-  <p><em>Colored stroke and fill with custom styling</em></p>
-  
-  <img src="assets/screenshots/shadow-example.png" alt="Shadow Effects Example" width="300" />
-  <p><em>Text with shadow effects and blur</em></p>
+### Basic Outlined Text
+
+<div style="display: flex; align-items: flex-start; gap: 20px; margin: 20px 0;">
+  <div style="flex: 1;">
+    <img src="assets/screenshots/basic-example.png" alt="Basic Outlined Text Example" width="300" />
+  </div>
+  <div style="flex: 1;">
+    <h4>Code:</h4>
+    ```tsx
+    <OutlinedText
+      text="Hello World!"
+      fontSize={24}
+      strokeWidth={1}
+      strokeColor="#000"
+      fillColor="#fff"
+      width={200}
+    />
+    ```
+  </div>
+</div>
+
+### Colored Outlined Text
+
+<div style="display: flex; align-items: flex-start; gap: 20px; margin: 20px 0;">
+  <div style="flex: 1;">
+    <img src="assets/screenshots/colored-example.png" alt="Colored Outlined Text Example" width="300" />
+  </div>
+  <div style="flex: 1;">
+    <h4>Code:</h4>
+    ```tsx
+    <OutlinedText
+      text="Colorful Text"
+      fontSize={28}
+      strokeWidth={2}
+      strokeColor="#ff6b6b"
+      fillColor="#FFFFFF"
+      width={250}
+    />
+    ```
+  </div>
+</div>
+
+### Shadowed Outlined Text
+
+<div style="display: flex; align-items: flex-start; gap: 20px; margin: 20px 0;">
+  <div style="flex: 1;">
+    <img src="assets/screenshots/shadow-example.png" alt="Shadow Effects Example" width="300" />
+  </div>
+  <div style="flex: 1;">
+    <h4>Code:</h4>
+    ```tsx
+    <OutlinedText
+      text="Shadowed Text"
+      fontSize={48}
+      strokeWidth={1}
+      strokeColor="#000"
+      width={250}
+      shadowColor="#8c8c8c"
+      shadowOffsetX={4}
+      shadowOffsetY={4}
+    />
+    ```
+  </div>
 </div>
 
 ## Features
