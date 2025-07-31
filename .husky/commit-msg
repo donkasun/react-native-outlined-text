@@ -1,0 +1,23 @@
+# Simple commit message validation
+# Allows conventional commits format and simple messages
+commit_regex='^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .+|^Merge .+|^Revert .+|^Release .+'
+
+if ! grep -qE "$commit_regex" "$1"; then
+    echo "❌ Invalid commit message format."
+    echo "Please use conventional commit format:"
+    echo "  feat: add new feature"
+    echo "  fix: resolve bug"
+    echo "  docs: update documentation"
+    echo "  style: formatting changes"
+    echo "  refactor: code refactoring"
+    echo "  test: add tests"
+    echo "  chore: maintenance tasks"
+    echo "  perf: performance improvements"
+    echo "  ci: CI/CD changes"
+    echo "  build: build system changes"
+    echo "  revert: revert previous commit"
+    echo "  Release: version bump"
+    exit 1
+fi
+
+echo "✅ Commit message format is valid!" 
