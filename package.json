@@ -13,10 +13,13 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
+    "type-check": "tsc --noEmit",
+    "pre-commit": "lint-staged",
     "release": "node scripts/release.js",
     "release:patch": "node scripts/release.js patch",
     "release:minor": "node scripts/release.js minor",
-    "release:major": "node scripts/release.js major"
+    "release:major": "node scripts/release.js major",
+    "prepare": "husky"
   },
   "keywords": [
     "react-native",
@@ -37,14 +40,16 @@
   "devDependencies": {
     "@types/react": "^19.0.10",
     "@types/react-native": "^0.72.0",
-    "prettier": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.0.0",
     "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "typescript": "^5.0.0",
-    "react-native-svg": "^14.0.0"
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.0.0",
+    "react-native-svg": "^14.0.0",
+    "typescript": "^5.0.0"
   },
   "repository": {
     "type": "git",
@@ -53,5 +58,18 @@
   "bugs": {
     "url": "https://github.com/donkasun/react-native-outlined-text/issues"
   },
-  "homepage": "https://github.com/donkasun/react-native-outlined-text#readme"
+  "homepage": "https://github.com/donkasun/react-native-outlined-text#readme",
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "src/**/*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
 }
