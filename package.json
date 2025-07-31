@@ -1,6 +1,6 @@
 {
   "name": "@donkasun/react-native-outlined-text",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React Native component for creating outlined text with customizable stroke effects and automatic text wrapping",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

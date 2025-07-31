@@ -1,6 +1,6 @@
 # Simple commit message validation
 # Allows conventional commits format and simple messages
-commit_regex='^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .+|^Merge .+|^Revert .+|^Release .+'
+commit_regex='^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .+|^Merge .+|^Revert .+|^Release .+|^[0-9]+\.[0-9]+\.[0-9]+$'
 
 if ! grep -qE "$commit_regex" "$1"; then
     echo "❌ Invalid commit message format."
