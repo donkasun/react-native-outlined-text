@@ -1,12 +1,8 @@
 # react-native-outlined-text
 
-[![npm](https://img.shields.io/npm/v/@donkasun/react-native-outlined-text)](https://www.npmjs.com/package/@donkasun/react-native-outlined-text)
-[![npm downloads](https://img.shields.io/npm/dm/@donkasun/react-native-outlined-text)](https://www.npmjs.com/package/@donkasun/react-native-outlined-text)
-
-
-[![React Native](https://img.shields.io/badge/react%20native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactnative.dev/)
-[![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![React Native SVG](https://img.shields.io/badge/react%20native%20svg-%23E23237.svg?style=for-the-badge&logo=svg&logoColor=white)](https://github.com/react-native-svg/react-native-svg)
+[![React Native](assets/badges/react-native.svg)](https://reactnative.dev/)
+[![TypeScript](assets/badges/typescript.svg)](https://www.typescriptlang.org/)
+[![React Native SVG](assets/badges/react-native-svg.svg)](https://github.com/react-native-svg/react-native-svg)
 
 An enhanced, customizable React Native component for creating outlined text with stroke effects and automatic text wrapping.
 
